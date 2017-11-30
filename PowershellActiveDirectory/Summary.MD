@@ -41,11 +41,41 @@
 - There is an explicit `-Recursive` parameter.
 
 # Quering AD Data
-- 
-
-
+- You can see the help using `help about_act`.
+- LDAP is not a Microsoft product.
+- There are different **Naming Partitions** or **Naming Contexts**.
+- CN stands for **Common Name** or **Canonical Name**.
+- OU stands for **Organizational Units**.
+- DC stands for **Domain Component**.
+- `[ADSISEARCHER]` or `[ADSI]` is your interfacing class.
+- SID stands for **Security Identifier**.
+- You can make queries using `Get-ADUser -Identity` and then:
+  * `<acct_name>`
+  * `<SID>`
+  * `GUID`
+  * `<CN=<x>,OU=<y>,...`
+- Interesting trick: `whoami /user /fo csv`.
+- **DO NOT USE FILTER * PROPERTY**
+- To get the Root of the **Domain Service Tree** use `Get-ADRootDSE`.
+- To get the list of subdomains use `Get-ADDomain`.
+- To get the list of Domains use `Get-ADForest`.
+- You can allow PowerShell to adjust the display formatting using `-AutoSize`.
+- You can define a search scope by passing `-SearchScope`.
+```
+Get-ADObject -Filter * -SearchBase (Get-ADRootDSE) configurationNamingContext -SearchScope OneLevel
+```
+- You can search for a particular computer using `Get-ADForest -Server <server_name>`.
+- You can also target accounts on a different computer:
+```
+Get-ADUser administrator -Properties * -Server <server_name>:3268`
+```
+- You can use a LDAP version using the parameter `-LDAPFilter`.
+- You can request the credentials for an accont using `Get-Credential <domain>\<user>`.
+- You can't do wildcards at the beginning and the end in LDAP: `*turtle*` is not allowed.
 
 # Forensic Investigations and Lockouts
+- 
+
 
 # Stale Object Cleanup
 
