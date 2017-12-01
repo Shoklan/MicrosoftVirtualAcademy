@@ -99,10 +99,26 @@ Get-ADUser administrator -Properties * -Server <server_name>:3268`
 - You can get the ACLS of an object using `Get-Acl`.
 
 # Stale Object Cleanup
-- 
+- Make you have the Recycling Bin on in case you need to undo changes.
+- You can use `Get-Date` in a multitude of ways:
+  * `[datetime]::Now`
+  * `[datetime]::UtcNow`
+  * `[datetime] | gm -Static`; means get static members.
+  * `(Get-Date).ToFileTimeUTC()`
+  * `(Get-Date).ToFileTime()`
+- If you give `FromFileTime()` the digit representation of the number, then you get a formatted date back.
+- You can get a list of inactive users using `Search-ADAccount -AccountInactive -UserOnly | ogv`.
+- You can generate your own time span using `New-TimeSpan -Days 90`.
+- You can tell powershell to check for inactive computers using `-ComputersOnly` instead.
+- You can check for Operating Systems using `$xp = Get-ADComputer -Filter {OperatingSystem - like "*XP*"}`.
+- **kbrtgt** is for Kerberos to create tickets.
+- **Resume Producing Event** or RPE.
 
 
 # Managing and Troubleshooting AD Replication
+- 
+
+
 
 # Recovery
 
