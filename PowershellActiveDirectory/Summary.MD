@@ -127,10 +127,31 @@ Get-ADUser administrator -Properties * -Server <server_name>:3268`
 - You can check on Replication errors using `Get-ADReplicationFailure -Scope <Forest | Doamin | Server | Site>`.
 
 # Recovery
+-  Turn on the Recycling Bin; this is not automatic.
+- AD Users property *ProtectedFromAccidentalDeletion* is defaulted to false.
+```
+# Now go forth and protect thy kindgom from junior admins everywhere
+Get-ADUser -Filter * | Set-ADObject -ProtectedFromAccidentalDeletion:$true
+Get-ADGroup -Filter * | Set-ADObject -ProtectedFromAccidentalDeletion:$true
+Get-ADOrganizationalUnit -Filter * | Set-ADObject -ProtectedFromAccidentalDeletion:$true
+```
+- The parameter `-Passthru` takes the same set of objects returned and moves them forward.
+- You will need to to raise the functional mode to 2008 R2+ ffor Recycle Bin.
+- You do this with `Set-ADForestMode -Identity <domain_name.com> -ForestMode Windows2008R2 -Confirm:$false`
+- Then, to turn it on use `Get-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestConfigurationSet -Target (Get-ADForest).RootDomain -server (Get-ADForest).DomainNamingMAster -Confim:$false`.
+- Once someething is deleted, it will be moved to the container **DeletedObjectContainer**.
+- You can acccess that using `Get-ADObject -SearchBase (Get-ADDomain).DeletedObjectsContainer`.
+- You can't see the objects unless you include the parameter `-IncludeDDeletedObjects`.
+- You can create a new snapshot using `New-ADSnapshot`.
+- You can see the snapshots using `Show-ADSnapshot | ogv`.
+- You can mount a copy of the AD using `Mount-ADDatabase -Last -LDAPPort 33389`.
+- **DO NOT CLOSE THE WINDOW THAT IS CREATED ELSE IT WILL DROP THE READ-ONLY SNAPSHOT**.
+- You can repair now from the copy *snapshot* using `Get-ADUser Guest -Server localhost | Repair-ADAttribute -Property Description -LDAPPort 33389`.
+
+# Deploying Domain Controllers
 - 
 
 
-# Deploying Domain Controllers
 
 # Research:
 - Implicit Remoting?
