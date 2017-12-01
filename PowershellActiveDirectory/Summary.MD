@@ -149,9 +149,13 @@ Get-ADOrganizationalUnit -Filter * | Set-ADObject -ProtectedFromAccidentalDeleti
 - You can repair now from the copy *snapshot* using `Get-ADUser Guest -Server localhost | Repair-ADAttribute -Property Description -LDAPPort 33389`.
 
 # Deploying Domain Controllers
-- 
-
-
+- Import the necessary module: `Import-Module ADDSDeployment`.
+- You can collect the current list of domain controllers using `Get-ADDomainController -Filter * | ft Name, Site, IPv4Address - Autosize`.
+- The module to manage the Windows Features is **ServerManager**.
+- You install a role onto a server using `Install-WindowsFeature -Name AD-Domain-Services -ComputerName <cmp_name> -IncludeManagementTools`.
+- You can remotely run a script via Powershell using `Invoke-Command -ComputerName <cpm_name> -ScriptBlocckk { ... }`.
+- You can remotely reboot a computer using `Restart-Computer <cpm_name> -wait -For Powershell -Force -Confirm:$false`.
+- **DSC** is Microsofts version of Puppet.
 
 # Research:
 - Implicit Remoting?
