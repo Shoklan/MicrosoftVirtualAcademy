@@ -116,11 +116,19 @@ Get-ADUser administrator -Properties * -Server <server_name>:3268`
 
 
 # Managing and Troubleshooting AD Replication
-- 
-
-
+- **Flexible Single Master Operation** is what fsmo stands for.
+- You can discovery who the *Primary Domain Controller* is using `Get-ADDomainController -Service PrimaryDC -Discover`.
+- You can set the roles using `Move-ADDirectoryServerOperationMasterRole -Identity <pcname> - OperationMasterRrole PDCEmulator, SchemaMaster`.
+- You can move multiple roles at the same time.
+- You can create new sites from csv using `Import-Csv <file> | New-ADReplicationSite`
+- You can create new subnets from csv using `Import-Csv <file> | New-ADReplicationSubnet`
+- You can see what is queued up for replication using `Get-ADReplicationQueueOperation -Server <cmp_name>`.
+- You can stop a computer using `Stop-Computer -ComputerName <cmp_name> -Force`.
+- You can check on Replication errors using `Get-ADReplicationFailure -Scope <Forest | Doamin | Server | Site>`.
 
 # Recovery
+- 
+
 
 # Deploying Domain Controllers
 
@@ -130,4 +138,6 @@ Get-ADUser administrator -Properties * -Server <server_name>:3268`
 
 # Reference:
 - [Microsoft Virtual Academy: Using PowerShell for Active Directory](https://aka.ms/MVAPSAD)
+- [Active Directory Topology Diagrammer](https://www.microsoft.com/en-us/download/details.aspx?id=13380)
+- [Everything You Need to Work with Active Directory](http://www.aka.ms/AD101)
 -
