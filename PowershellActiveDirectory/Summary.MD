@@ -74,8 +74,27 @@ Get-ADUser administrator -Properties * -Server <server_name>:3268`
 - You can't do wildcards at the beginning and the end in LDAP: `*turtle*` is not allowed.
 
 # Forensic Investigations and Lockouts
+- The **Metadata** is what keeps track of who and when changes occurred.
+- You can get that data using `Get-ADReplicationAttributeMetaData`.
+- The **RID** of the Enterprise Admin Account is *-519*.
+- USN stands for **Update Sequence Number**.
+- The **Invocation Id** is unique per database.
+- There is an alias for the `Out-GridView` of `ogv`.
+- To show group memberships, since 2003, you need to pass the parameter `-ShowAllLinkedValues`.
+- The Attributes **FirstOriginatingCreateTime** will show you when a membership was added to a user.
+- There is the `Get-EventLog` which looks at the classic Windows event logs.
+- The event logs are in XML when you use `Get-WinEvent`; which supersedes `Get-EventLog`.
+- You can get the XML from *Event Viewer > Filter Current Log > XML Tabular*.
+- Take that and insert it into:
+```
+[xml]$xmlfilter = @"
+<xml_here>
+"@
+```
+- A **Here-String** is Powershells version of a string literal.
+- Please note that the `"@"` must be left justified or it wont work: maybe.
+- You can run a command on a remote server using `Invoke-Command`.
 - 
-
 
 # Stale Object Cleanup
 
