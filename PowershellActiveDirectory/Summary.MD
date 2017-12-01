@@ -94,9 +94,13 @@ Get-ADUser administrator -Properties * -Server <server_name>:3268`
 - A **Here-String** is Powershells version of a string literal.
 - Please note that the `"@"` must be left justified or it wont work: maybe.
 - You can run a command on a remote server using `Invoke-Command`.
-- 
+- You can check which accounts are **Locked Out** using the parameter `-LockedOut`.
+- You can exclude properties using `ExcludeProperty`.
+- You can get the ACLS of an object using `Get-Acl`.
 
 # Stale Object Cleanup
+- 
+
 
 # Managing and Troubleshooting AD Replication
 
